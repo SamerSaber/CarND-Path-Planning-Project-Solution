@@ -110,6 +110,19 @@ Please (do your best to) stick to [Google's C++ style guide](https://google.gith
 Note: regardless of the changes you make, your project must be buildable using
 cmake and make!
 
+# System Description 
+[image1]: ./pics/MOPL_statemachine.png  "state machine"
+
+This is the statemachine of the motion planner 
+![alt text][image1]
+
+*  The statemachine is evaluated in this function:run_statemachine.
+*  In the state:DRIVE_FORWARD we keep driving with the maximum allowed velocity 49.5 MPH.
+* If we found a leading car we change the state to TRACK_LEADING_CAR.
+* In the state TRACK_LEADING_CAR we drive with the same velocity as the leading car with keeping 50 m distance.
+* If the leading car is dissapeared for some reason(i.e. changed lane) we change the state to state:DRIVE_FORWARD.
+* While keeping in the TRACK_LEADING_CAR and the leading car is still present, we check if changing lane(Left/Right) is available, wechange lane.
+*  Changing lane is available when in the target lane there is enough space to make the manuever.
 
 ## Call for IDE Profiles Pull Requests
 
